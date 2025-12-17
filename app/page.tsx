@@ -38,7 +38,42 @@ const featuredProducts = [
   },
 ];
 
-export default function Home() {
+type Product = {
+  _id?: string;
+  id?: string;
+  name: string;
+  price: number;
+  color?: string;
+  tag?: string;
+  images?: string[];
+  isRecommended?: boolean;
+};
+
+async function getProducts(): Promise<Product[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+  const res = await fetch(`${baseUrl}/api/products`, {
+    cache: "no-store",
+  });
+
+  const data = await res.json();
+
+  // กัน response ได้หลายรูปแบบ (บางทีเป็น array, บางทีห่อด้วย {products})
+  if (Array.isArray(data)) return data;
+  if (Array.isArray(data?.products)) return data.products;
+  if (Array.isArray(data?.orders)) return []; // กันพลาด
+  return [];
+}
+
+
+export default async function Home() {
+  const products = await getProducts();
+
+  // เลือกแสดงสินค้าแนะนำก่อน ถ้าไม่มีค่อยเอาตัวแรก ๆ
+  const featured =
+    products.filter((p) => p.isRecommended).slice(0, 4).length > 0
+      ? products.filter((p) => p.isRecommended).slice(0, 4)
+      : products.slice(0, 4);
   return (
     <main className="bg-orange-50">
       {/* HERO SECTION */}
@@ -66,7 +101,7 @@ export default function Home() {
                 ดูกรอบแว่นทั้งหมด
               </Link>
               <Link
-                href="/contact"
+                href="/appointment"
                 className="inline-flex items-center justify-center rounded-full border border-orange-300 bg-white/70 px-6 py-2.5 text-sm font-medium text-orange-700 transition hover:bg-white"
               >
                 นัดตรวจสายตา
@@ -162,38 +197,57 @@ export default function Home() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-4">
-            {featuredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm/50 hover:shadow-md transition"
-              >
-                <div className="relative h-32 w-full overflow-hidden bg-slate-100">
-                  {/* ตอนนี้ใช้พื้นหลังเฉย ๆ ไว้ค่อยใส่รูปจริงภายหลัง */}
-                  {/* <Image ... /> */}
-                  <div className="flex h-full items-center justify-center text-xs text-slate-400">
-                    รูปสินค้า (ใส่ทีหลัง)
-                  </div>
-                </div>
-                <div className="flex flex-1 flex-col gap-2 p-4 text-sm">
-                  <div>
-                    <div className="text-sm font-semibold text-slate-900">
-                      {product.name}
-                    </div>
-                    <div className="text-xs text-slate-500">{product.color}</div>
-                  </div>
-                  <div className="text-xs text-orange-600">{product.tag}</div>
-                  <div className="mt-auto flex items-center justify-between pt-2">
-                    <div className="text-base font-semibold text-slate-900">
-                      ฿{product.price}
-                    </div>
-                    <button className="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-700 transition hover:border-orange-500 hover:text-orange-600">
-                      ดูรายละเอียด
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
+  {featured.map((product) => {
+    const pid = (product._id ?? product.id) as string;
+
+    return (
+      <div
+        key={pid}
+        className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm/50 hover:shadow-md transition"
+      >
+        <div className="relative h-32 w-full overflow-hidden bg-slate-100">
+          {product.images?.[0] ? (
+            // แนะนำใช้ img ไปก่อน (ง่าย/ไม่ต้อง config domain)
+            <img
+              src={product.images[0]}
+              alt={product.name}
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center text-xs text-slate-400">
+              รูปสินค้า (ยังไม่มี)
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-1 flex-col gap-2 p-4 text-sm">
+          <div>
+            <div className="text-sm font-semibold text-slate-900">
+              {product.name}
+            </div>
+            <div className="text-xs text-slate-500">{product.color ?? ""}</div>
           </div>
+
+          <div className="text-xs text-orange-600">{product.tag ?? ""}</div>
+
+          <div className="mt-auto flex items-center justify-between pt-2">
+            <div className="text-base font-semibold text-slate-900">
+              ฿{Number(product.price || 0).toLocaleString()}
+            </div>
+
+            <Link
+              href={`/products/${pid}`}
+              className="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-700 transition hover:border-orange-500 hover:text-orange-600"
+            >
+              ดูรายละเอียด
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  })}
+</div>
+
         </Container>
       </section>
 
@@ -210,7 +264,7 @@ export default function Home() {
             </p>
           </div>
           <Link
-            href="/contact"
+            href="/appointment"
             className="inline-flex items-center justify-center rounded-full bg-orange-500 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-orange-600"
           >
             จองคิวตรวจสายตา
