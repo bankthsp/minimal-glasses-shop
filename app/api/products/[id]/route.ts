@@ -45,7 +45,6 @@ export async function GET(
       description: doc.description,
       tag: doc.tag,
       isRecommended: doc.isRecommended,
-      inStock: doc.inStock,
       isActive: doc.isActive,
       images: doc.images,
       createdAt: doc.createdAt,
@@ -82,7 +81,6 @@ export async function PATCH(
       description?: string;
       tag?: string;
       isRecommended?: boolean;
-      inStock?: boolean;
       isActive?: boolean;
       images?: string[];
       slug?: unknown; // ✅ กัน client ส่งมา
@@ -117,7 +115,6 @@ export async function PATCH(
     if (typeof body.description === "string") update.description = body.description;
     if (typeof body.tag === "string") update.tag = body.tag;
     if (typeof body.isRecommended === "boolean") update.isRecommended = body.isRecommended;
-    if (typeof body.inStock === "boolean") update.inStock = body.inStock;
     if (typeof body.isActive === "boolean") update.isActive = body.isActive;
     if (Array.isArray(body.images)) update.images = body.images.filter((x) => typeof x === "string");
 

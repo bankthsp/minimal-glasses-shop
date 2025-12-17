@@ -15,7 +15,7 @@ type Product = {
   tag: string;
   isRecommended: boolean;
   stock: number; // ✅ ใช้ตัวนี้เป็นหลัก
-  inStock: boolean; // (ยังคงไว้ชั่วคราว)
+  //inStock: boolean; // (ยังคงไว้ชั่วคราว)
   images: string[];
 };
 

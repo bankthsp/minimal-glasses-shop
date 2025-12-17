@@ -9,7 +9,7 @@ export interface Product {
   color: ProductColor;
   category: ProductCategory;
   tag: string;
-  inStock: boolean;
+  //inStock: boolean;
 }
 
 export const mockProducts: Product[] = [
@@ -20,7 +20,7 @@ export const mockProducts: Product[] = [
     color: "black",
     category: "optical",
     tag: "เหมาะกับทำงาน/ทางการ",
-    inStock: true,
+    //inStock: true,
   },
   {
     id: "2",
@@ -29,7 +29,7 @@ export const mockProducts: Product[] = [
     color: "gold",
     category: "optical",
     tag: "ลุคสุภาพ เรียบหรู",
-    inStock: true,
+    //inStock: true,
   },
   {
     id: "3",
@@ -38,7 +38,7 @@ export const mockProducts: Product[] = [
     color: "silver",
     category: "optical",
     tag: "น้ำหนักเบา ใส่สบาย",
-    inStock: true,
+    //inStock: true,
   },
   {
     id: "4",
@@ -47,7 +47,7 @@ export const mockProducts: Product[] = [
     color: "brown",
     category: "optical",
     tag: "สายแฟฯ มินิมอล",
-    inStock: false,
+    //inStock: false,
   },
   {
     id: "5",
@@ -56,7 +56,7 @@ export const mockProducts: Product[] = [
     color: "black",
     category: "sun",
     tag: "กรองแสง UV400",
-    inStock: true,
+    //inStock: true,
   },
   {
     id: "6",
@@ -65,7 +65,7 @@ export const mockProducts: Product[] = [
     color: "clear",
     category: "lens",
     tag: "เหมาะกับผู้ใช้หลายระยะ",
-    inStock: true,
+    //inStock: true,
   },
 ];
 
