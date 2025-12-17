@@ -1,0 +1,7 @@
+/* app/globals.css */
+
+/* บอกให้ใช้ Tailwind v4 */
+@import "tailwindcss";
+
+/* บอก Tailwind ให้สแกนไฟล์พวกนี้เพื่อดึง class name มา generate */
+@source "./app/**/*.{js,ts,jsx,tsx,mdx}" "./components/**/*.{js,ts,jsx,tsx,mdx}";
