@@ -60,26 +60,25 @@ function mapToProductRow(d: LeanProductDoc): ProductRow {
 async function getFeaturedProducts(): Promise<ProductRow[]> {
   await connectDB();
 
-  const recommendedDocs = await Product.find({ isRecommended: true, isActive: true })
-  .sort({ createdAt: -1 })
-  .limit(4)
-  .select("_id name price color tag images isRecommended")
-  .lean<LeanProductDoc[]>();
+  const recommendedDocs = (await Product.find({ isRecommended: true, isActive: true })
+    .sort({ createdAt: -1 })
+    .limit(4)
+    .select("_id name price color tag images isRecommended")
+    .lean()) as LeanProductDoc[];
 
   let docs = recommendedDocs;
 
   if (docs.length < 4) {
     const excludeIds = docs.map((d) => d._id);
 
-    const moreDocs = await Product.find({
-  isActive: true,
-  _id: { $nin: excludeIds },
-})
-  .sort({ createdAt: -1 })
-  .limit(4 - docs.length)
-  .select("_id name price color tag images isRecommended")
-  .lean<LeanProductDoc[]>();
-
+    const moreDocs = (await Product.find({
+      isActive: true,
+      _id: { $nin: excludeIds },
+    })
+      .sort({ createdAt: -1 })
+      .limit(4 - docs.length)
+      .select("_id name price color tag images isRecommended")
+      .lean()) as LeanProductDoc[];
 
     docs = docs.concat(moreDocs);
   }
@@ -164,13 +163,13 @@ export default async function Home() {
               ยังไม่มีสินค้าในระบบ
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4">
+            <div className="grid gap-6 md:grid-cols-4">
               {featured.map((p) => (
                 <div
                   key={p.id}
                   className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm/50 hover:shadow-md transition"
                 >
-                  <div className="relative h-40 sm:h-44 md:h-32 w-full overflow-hidden bg-slate-100">
+                  <div className="relative h-32 w-full overflow-hidden bg-slate-100">
                     {p.images?.[0] ? (
                       <img src={p.images[0]} alt={p.name} className="h-full w-full object-cover" />
                     ) : (
@@ -180,7 +179,7 @@ export default async function Home() {
                     )}
                   </div>
 
-                  <div className="flex flex-1 flex-col gap-2 p-3 sm:p-4 text-sm">
+                  <div className="flex flex-1 flex-col gap-2 p-4 text-sm">
                     <div>
                       <div className="text-sm font-semibold text-slate-900">{p.name}</div>
                       <div className="text-xs text-slate-500">{p.color}</div>
