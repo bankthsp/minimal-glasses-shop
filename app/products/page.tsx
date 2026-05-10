@@ -42,10 +42,13 @@ const priceOptions = [
   { value: "4000+", label: "มากกว่า 4,000" },
 ] as const;
 
+const ITEMS_PER_PAGE = 12;
+
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
 
   const [search, setSearch] = useState("");
   const [category, setCategory] =
@@ -111,6 +114,11 @@ export default function ProductsPage() {
       return true;
     });
   }, [products, search, category, color, priceRange]);
+
+  useEffect(() => { setPage(1); }, [search, category, color, priceRange]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / ITEMS_PER_PAGE));
+  const pagedProducts = filteredProducts.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
   return (
     <main className="bg-slate-50 min-h-screen">
@@ -224,7 +232,7 @@ export default function ProductsPage() {
           )}
 
           <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredProducts.map((product) => (
+            {pagedProducts.map((product) => (
               <Link
                 key={product.id}
                 href={`/products/${product.id}`}
@@ -271,6 +279,42 @@ export default function ProductsPage() {
               </Link>
             ))}
           </div>
+
+          {totalPages > 1 && (
+            <div className="mt-8 flex items-center justify-center gap-2">
+              <button
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={page === 1}
+                className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-orange-400 hover:text-orange-600 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                ← ก่อนหน้า
+              </button>
+
+              <div className="flex items-center gap-1">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                  <button
+                    key={p}
+                    onClick={() => setPage(p)}
+                    className={`h-8 w-8 rounded-full text-sm font-medium transition ${
+                      p === page
+                        ? "bg-orange-600 text-white"
+                        : "border border-slate-200 bg-white text-slate-700 hover:border-orange-400 hover:text-orange-600"
+                    }`}
+                  >
+                    {p}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                disabled={page === totalPages}
+                className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-orange-400 hover:text-orange-600 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                ถัดไป →
+              </button>
+            </div>
+          )}
         </Container>
       </section>
     </main>

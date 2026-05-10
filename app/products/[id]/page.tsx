@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import Container from "../../components/layout/Container";
 
@@ -19,13 +19,10 @@ type Product = {
   images: string[];
 };
 
-const cartEnabled =
-  typeof process !== "undefined" &&
-  process.env.NEXT_PUBLIC_CART_ENABLED === "true";
+const FACEBOOK_URL = "https://www.facebook.com/teeramonoptics";
 
 export default function ProductDetailPage() {
   const params = useParams<{ id: string }>();
-  const router = useRouter();
   const id = params.id;
 
   const [product, setProduct] = useState<Product | null>(null);
@@ -66,58 +63,6 @@ export default function ProductDetailPage() {
     loadProduct();
   }, [id]);
 
-  const handleAddToCart = () => {
-    if (!product) return;
-
-    // ✅ ใช้ stock เป็นหลัก
-    if (product.stock <= 0) {
-      alert("สินค้าหมดชั่วคราว");
-      return;
-    }
-
-    if (!cartEnabled) {
-      alert("ตอนนี้ยังไม่เปิดให้สั่งซื้อออนไลน์ผ่านเว็บไซต์ครับ");
-      return;
-    }
-
-    if (typeof window === "undefined") return;
-
-    type CartItem = {
-      id: string;
-      name: string;
-      price: number;
-      quantity: number;
-    };
-
-    const STORAGE_KEY = "teeramon_cart";
-
-    const existing = window.localStorage.getItem(STORAGE_KEY);
-    let items: CartItem[] = [];
-
-    if (existing) {
-      try {
-        items = JSON.parse(existing) as CartItem[];
-      } catch (e) {
-        console.error("parse cart error:", e);
-      }
-    }
-
-    const index = items.findIndex((item) => item.id === product.id);
-    if (index >= 0) {
-      items[index].quantity += 1;
-    } else {
-      items.push({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        quantity: 1,
-      });
-    }
-
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-
-    router.push("/cart");
-  };
 
   if (loading) {
     return (
@@ -150,8 +95,6 @@ export default function ProductDetailPage() {
   }
 
   if (!product) return null;
-
-  const canBuy = cartEnabled && product.stock > 0;
 
   return (
     <main className="bg-slate-50 min-h-screen">
@@ -264,17 +207,17 @@ export default function ProductDetailPage() {
             </div>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
-              <button
-                onClick={handleAddToCart}
-                className={`inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold shadow-sm transition ${
-                  canBuy
-                    ? "bg-orange-600 text-white hover:bg-orange-700"
-                    : "bg-slate-200 text-slate-500 cursor-not-allowed"
-                }`}
-                disabled={!canBuy}
+              <a
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-orange-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-orange-700"
               >
-                เพิ่มลงตะกร้า
-              </button>
+                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+                  <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5H16.7V5c-.3 0-1.4-.1-2.7-.1-2.7 0-4.5 1.6-4.5 4.6V11H7v3h2.5v8h4z" />
+                </svg>
+                สอบถาม / สั่งผ่าน Facebook
+              </a>
 
               <Link
                 href="/appointment"
@@ -284,11 +227,9 @@ export default function ProductDetailPage() {
               </Link>
             </div>
 
-            {!cartEnabled && (
-              <p className="pt-1 text-xs text-slate-400">
-                * ขณะนี้ยังไม่เปิดให้สั่งซื้อออนไลน์ ระบบตะกร้าจะเปิดใช้งานในภายหลัง
-              </p>
-            )}
+            <p className="pt-1 text-xs text-slate-400">
+              * ขณะนี้ยังไม่เปิดให้สั่งซื้อออนไลน์ สอบถาม/สั่งซื้อผ่าน Facebook ได้เลย
+            </p>
           </div>
         </Container>
       </section>
