@@ -15,7 +15,7 @@ type ProductApi = {
   description: string;
   tag: string;
   isRecommended: boolean;
-  inStock: boolean;
+  // inStock: boolean;
   isActive: boolean;
   images: string[];
 };
@@ -61,7 +61,7 @@ export default function EditProductClient({ id }: { id: string }) {
         description: String(data.description ?? ""),
         tag: String(data.tag ?? ""),
         isRecommended: Boolean(data.isRecommended ?? false),
-        inStock: Boolean(data.inStock ?? true),
+        //inStock: Boolean(data.inStock ?? true),
         isActive: Boolean(data.isActive ?? true),
         images: Array.isArray(data.images) ? data.images.filter((x) => typeof x === "string") : [],
       };
@@ -124,7 +124,7 @@ export default function EditProductClient({ id }: { id: string }) {
               description: product.description,
               tag: product.tag,
               isRecommended: product.isRecommended,
-              inStock: product.inStock,
+              //inStock: product.inStock,
               isActive: product.isActive,
               images: product.images,
             }}

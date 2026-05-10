@@ -96,7 +96,7 @@ export async function POST(request: Request) {
       description?: string;
       tag?: string;
       isRecommended?: boolean;
-      inStock?: boolean;
+      //inStock?: boolean;
       isActive?: boolean;
       images?: string[];
     };
@@ -110,7 +110,7 @@ export async function POST(request: Request) {
       description,
       tag,
       isRecommended,
-      inStock,
+      //inStock,
       isActive,
       images,
     } = body;
