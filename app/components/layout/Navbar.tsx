@@ -10,6 +10,7 @@ import Container from "./Container";
 const navLinks = [
   { href: "/", label: "หน้าแรก" },
   { href: "/products", label: "สินค้า" },
+  { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "เกี่ยวกับร้าน" },
   { href: "/contact", label: "ติดต่อเรา" },
 ];
