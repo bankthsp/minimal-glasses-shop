@@ -87,6 +87,7 @@ export default function Footer() {
           <nav className="flex flex-col gap-1.5">
             <Link href="/" className="hover:text-orange-600 transition">หน้าแรก</Link>
             <Link href="/products" className="hover:text-orange-600 transition">สินค้าทั้งหมด</Link>
+            <Link href="/gallery" className="hover:text-orange-600 transition">Gallery</Link>
             <Link href="/appointment" className="hover:text-orange-600 transition">นัดตรวจสายตา</Link>
             <Link href="/about" className="hover:text-orange-600 transition">เกี่ยวกับร้าน</Link>
             <Link href="/contact" className="hover:text-orange-600 transition">ติดต่อเรา</Link>
