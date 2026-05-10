@@ -1,5 +1,5 @@
 // app/page.tsx
-export const revalidate = 0;
+export const revalidate = 60;
 
 
 import Link from "next/link";
@@ -58,32 +58,36 @@ function mapToProductRow(d: LeanProductDoc): ProductRow {
 
 
 async function getFeaturedProducts(): Promise<ProductRow[]> {
-  await connectDB();
+  try {
+    await connectDB();
 
-  const recommendedDocs = (await Product.find({ isRecommended: true, isActive: true })
-    .sort({ createdAt: -1 })
-    .limit(4)
-    .select("_id name price color tag images isRecommended")
-    .lean()) as LeanProductDoc[];
-
-  let docs = recommendedDocs;
-
-  if (docs.length < 4) {
-    const excludeIds = docs.map((d) => d._id);
-
-    const moreDocs = (await Product.find({
-      isActive: true,
-      _id: { $nin: excludeIds },
-    })
+    const recommendedDocs = (await Product.find({ isRecommended: true, isActive: true })
       .sort({ createdAt: -1 })
-      .limit(4 - docs.length)
+      .limit(4)
       .select("_id name price color tag images isRecommended")
       .lean()) as LeanProductDoc[];
 
-    docs = docs.concat(moreDocs);
-  }
+    let docs = recommendedDocs;
 
-  return docs.map(mapToProductRow);
+    if (docs.length < 4) {
+      const excludeIds = docs.map((d) => d._id);
+
+      const moreDocs = (await Product.find({
+        isActive: true,
+        _id: { $nin: excludeIds },
+      })
+        .sort({ createdAt: -1 })
+        .limit(4 - docs.length)
+        .select("_id name price color tag images isRecommended")
+        .lean()) as LeanProductDoc[];
+
+      docs = docs.concat(moreDocs);
+    }
+
+    return docs.map(mapToProductRow);
+  } catch {
+    return [];
+  }
 }
 
 
@@ -150,7 +154,7 @@ export default async function Home() {
             <div>
               <h2 className="text-2xl font-semibold text-slate-900">กรอบแว่นแนะนำ</h2>
               <p className="mt-1 text-sm text-slate-600">
-                ดึงจากฐานข้อมูลจริง (recommended ก่อน)
+                คัดสรรมาเพื่อคุณโดยเฉพาะ
               </p>
             </div>
             <Link href="/products" className="text-sm font-medium text-orange-600 hover:text-orange-700">

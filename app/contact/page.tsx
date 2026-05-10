@@ -16,9 +16,9 @@ export const metadata = {
 
 const CONTACT = {
   facebook: "https://www.facebook.com/teeramonoptics",
-  tiktok: "https://www.tiktok.com/@teeramon_optict",
+  tiktok: "https://www.tiktok.com/@teeramon_optic",
   instagram: "https://www.instagram.com/teeramonoptic/",
-  map: "https://maps.app.goo.gl/qDbwLYZK4q7Z7nGV7",
+  map: "https://maps.app.goo.gl/BjpoiYegCirNNqjYA",
   // TODO: replace with real values
   phoneDisplay: "+66 00 000 0000",
   phoneDial: "+660000000000",
