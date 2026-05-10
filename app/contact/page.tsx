@@ -18,12 +18,11 @@ const CONTACT = {
   facebook: "https://www.facebook.com/teeramonoptics",
   tiktok: "https://www.tiktok.com/@teeramon_optic",
   instagram: "https://www.instagram.com/teeramonoptic/",
+  lineoa: "https://line.me/R/ti/p/@741wcnor",
   map: "https://maps.app.goo.gl/BjpoiYegCirNNqjYA",
-  // TODO: replace with real values
-  phoneDisplay: "+66 00 000 0000",
-  phoneDial: "+660000000000",
+  phoneDisplay: "064-706-8180",
+  phoneDial: "+66647068180",
   email: "hello@teeramonoptic.com",
-  line: "@teeramonoptic",
 } as const;
 
 /* ---------------------------------
@@ -82,6 +81,14 @@ function IconInstagram(props: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" className={props.className ?? "h-5 w-5"} fill="currentColor">
       <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM18 6.8a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z" />
+    </svg>
+  );
+}
+
+function IconLine(props: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={props.className ?? "h-5 w-5"} fill="currentColor">
+      <path d="M12 3c5 0 9 3.1 9 7s-4 7-9 7c-.7 0-1.4-.1-2.1-.2L6 20.8c-.3.2-.7-.1-.6-.5l.8-3.2C4 15.9 3 14 3 10c0-3.9 4-7 9-7zm-3 7h6v2H9v-2zm0-3h6v2H9V7zm0 6h4v2H9v-2z" />
     </svg>
   );
 }
@@ -192,8 +199,7 @@ export default function ContactPage() {
               </h1>
 
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/75">
-                เลือกช่องทางที่สะดวกที่สุด: โทร / แชท / แผนที่ / หรือส่งข้อความ
-                (หน้าแบบใหม่ไม่ซ้ำ Bento)
+                เลือกช่องทางที่สะดวกที่สุด: โทร / LINE / Facebook / แผนที่ หรือแวะมาที่ร้านได้เลยทุกวัน 10:00–20:00 น.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
@@ -285,7 +291,7 @@ export default function ContactPage() {
                   },
                   {
                     q: "ต้องเตรียมอะไรไปที่ร้านไหม?",
-                    a: "(Mock) ถ้ามีแว่นเดิม แนะนำให้นำมาด้วย เพื่อช่วยประเมินค่าสายตาและการใช้งานเดิม",
+                    a: "ถ้ามีแว่นเดิม แนะนำให้นำมาด้วย เพื่อช่วยประเมินค่าสายตาและการใช้งานเดิม ไม่ต้องเตรียมอะไรเป็นพิเศษ แวะมาได้เลย",
                   },
                   {
                     q: "ติดต่อช่องทางไหนเร็วที่สุด?",
@@ -314,6 +320,12 @@ export default function ContactPage() {
                 <div className="text-sm font-semibold text-slate-900">Social</div>
                 <div className="mt-4 grid gap-3">
                   <ActionButton
+                    href={CONTACT.lineoa}
+                    label="LINE OA"
+                    sub="@741wcnor"
+                    icon={<IconLine />}
+                  />
+                  <ActionButton
                     href={CONTACT.facebook}
                     label="Facebook"
                     sub="/teeramonoptics"
@@ -328,7 +340,7 @@ export default function ContactPage() {
                   <ActionButton
                     href={CONTACT.tiktok}
                     label="TikTok"
-                    sub="@teeramon_optict"
+                    sub="@teeramon_optic"
                     icon={<IconTikTok />}
                   />
                 </div>

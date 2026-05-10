@@ -334,7 +334,7 @@ function ServiceAutoSlider({
         {/* caption (overlay) */}
         <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
           <div className="text-xs font-semibold text-white/90">
-            (Mock) รูปบริการ / บรรยากาศร้าน
+            บรรยากาศร้าน / ภาพบริการ
           </div>
           <Badge text="Auto" fallback="Auto" tone="dark" />
         </div>
@@ -362,8 +362,8 @@ export default function AboutPage() {
           </h1>
 
           <p className="max-w-2xl text-base leading-relaxed text-slate-700">
-            (Mock) จัดหน้าแบบ Bento Grid และปรับธีมสีให้ contrast ชัดขึ้น โดยสลับกล่อง
-            ขาว/ส้ม/เทา/ดำ ให้ยังคุมโทนอบอุ่นของร้าน
+            ร้านแว่นตาและศูนย์เลนส์ที่ดูแลคุณตั้งแต่ต้นจนจบ — ตรวจวัดสายตาโดยนักทัศนมาตร
+            คัดเลนส์ให้เหมาะกับการใช้งาน พร้อมบริการดูแลหลังการขายอย่างใส่ใจ
           </p>
 
           <div className="flex flex-wrap gap-3 pt-2">
@@ -407,8 +407,9 @@ export default function AboutPage() {
             </div>
 
             <p className="mt-4 leading-relaxed text-slate-700">
-              (Mock) เล่าความตั้งใจของร้าน เช่น การตรวจวัดสายตาอย่างละเอียด การแนะนำเลนส์ให้เหมาะกับการใช้งานจริง
-              และการดูแลหลังการขายให้ลูกค้าใช้งานได้ทุกวันอย่างมั่นใจ
+              Teeramon Optic เปิดขึ้นด้วยความตั้งใจที่อยากให้ลูกค้าได้รับการดูแลด้านสายตาอย่างละเอียดและจริงจัง
+              ไม่ใช่แค่ขายแว่น แต่คือการเข้าใจการใช้งานจริงของแต่ละคน — ไม่ว่าจะเป็นพนักงานออฟฟิศที่จ้องหน้าจอทั้งวัน
+              นักเรียนที่ต้องการชัดทั้งกระดานและหนังสือ หรือผู้สูงอายุที่ต้องการเลนส์โปรเกรสซีฟ
             </p>
 
             <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -420,9 +421,9 @@ export default function AboutPage() {
             <div className="mt-6 rounded-2xl border border-orange-200/35 bg-white/75 p-4">
               <div className="text-sm font-semibold text-slate-900">โฟกัสหลักของเรา</div>
               <ul className="mt-2 space-y-2 text-sm text-slate-700">
-                <li>• (Mock) ตรวจวัดสายตา + ปรับเลนส์ให้เหมาะกับงาน/ไลฟ์สไตล์</li>
-                <li>• (Mock) คัดกรอบที่ใส่สบายและเข้ากับใบหน้า</li>
-                <li>• (Mock) บริการหลังการขาย: ปรับแว่น/ทำความสะอาด/ให้คำปรึกษา</li>
+                <li>• ตรวจวัดสายตาอย่างละเอียด วิเคราะห์ค่าสายตาและแนะนำเลนส์ตามการใช้งานจริง</li>
+                <li>• คัดกรอบที่ใส่สบายและเข้ากับรูปหน้าของคุณ</li>
+                <li>• บริการหลังการขาย: ปรับแว่น / ทำความสะอาด / ให้คำปรึกษาตลอดอายุการใช้งาน</li>
               </ul>
             </div>
           </Card>
@@ -438,7 +439,8 @@ export default function AboutPage() {
             </div>
 
             <p className="mt-3 text-sm leading-relaxed text-slate-700">
-              (Mock) ใส่ประวัติย่อ เช่น ประสบการณ์ทำงาน แนวทางการดูแลลูกค้า และสิ่งที่ร้านให้ความสำคัญ
+              นักทัศนมาตรผู้ดูแลร้าน ผ่านการฝึกอบรมและรับรองวิชาชีพด้านทัศนมาตรศาสตร์
+              เชื่อว่าแว่นตาที่ดีต้องเริ่มจากการตรวจวัดที่ถูกต้อง และเข้าใจว่าลูกค้าแต่ละคนมีการใช้งานที่ไม่เหมือนกัน
             </p>
 
             <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-5">
@@ -474,7 +476,7 @@ export default function AboutPage() {
                     </div>
                   ))}
                 </div>
-                <div className="mt-2 text-xs text-slate-600">(Mock) รูปเกียรติบัตร/ใบรับรอง</div>
+                <div className="mt-2 text-xs text-slate-600">ใบรับรองและเกียรติบัตร</div>
               </div>
             </div>
           </Card>
@@ -501,7 +503,7 @@ export default function AboutPage() {
               <ExternalButton
                 href={SOCIAL.tiktok}
                 label="TikTok"
-                hint="@teeramon_optict"
+                hint="@teeramon_optic"
                 icon={<IconTikTok />}
               />
               <ExternalButton
@@ -525,7 +527,7 @@ export default function AboutPage() {
               <div>
                 <div className="text-sm font-semibold text-orange-700">บริการ</div>
                 <h3 className="mt-2 text-xl font-semibold tracking-tight text-slate-900">บริการที่ลูกค้าพบได้ในร้าน</h3>
-                <p className="mt-2 text-sm text-slate-700">(Mock) เพิ่มรูปประกอบและสไลด์อัตโนมัติเพื่อให้กล่องมีชีวิตขึ้น</p>
+                <p className="mt-2 text-sm text-slate-700">บริการครบวงจรสำหรับดวงตาของคุณ ตั้งแต่วัดสายตา เลือกกรอบ ประกอบเลนส์ และดูแลหลังการขาย</p>
               </div>
               <Badge text="Service" fallback="Service" />
             </div>
@@ -559,7 +561,7 @@ export default function AboutPage() {
               <div>
                 <div className="text-sm font-semibold text-orange-300">พร้อมเริ่ม?</div>
                 <h3 className="mt-2 text-xl font-semibold tracking-tight text-white">นัดตรวจสายตาหรือปรึกษาการเลือกเลนส์</h3>
-                <p className="mt-2 text-sm text-white/75">(Mock) ใส่ข้อความเชิญชวนสั้น ๆ ที่สุภาพและชัดเจน</p>
+                <p className="mt-2 text-sm text-white/75">มีคำถามเรื่องสายตา หรืออยากปรึกษาการเลือกเลนส์ที่เหมาะกับคุณ? ติดต่อเราได้เลย หรือแวะมาที่ร้านทุกวัน 10:00–20:00 น.</p>
               </div>
               <div className="flex flex-wrap gap-3">
                 <Link
@@ -588,12 +590,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Footer note */}
-      <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
-        <div className="rounded-3xl border border-orange-100/80 bg-white/60 p-5 text-sm text-slate-700">
-          หมายเหตุ: เนื้อหาในหน้านี้เป็น Mock ชั่วคราว — เดี๋ยวค่อยแทนด้วยข้อมูลจริง (ประวัติร้าน/บริการ/เวลา/ที่อยู่/รูปภาพ)
-        </div>
-      </section>
+
     </main>
   );
 }

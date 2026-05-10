@@ -6,6 +6,15 @@ const currentYear = new Date().getFullYear();
 
 const SOCIAL = [
   {
+    label: "LINE OA",
+    href: "https://line.me/R/ti/p/@741wcnor",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4" fill="currentColor">
+        <path d="M12 3c5 0 9 3.1 9 7s-4 7-9 7c-.7 0-1.4-.1-2.1-.2L6 20.8c-.3.2-.7-.1-.6-.5l.8-3.2C4 15.9 3 14 3 10c0-3.9 4-7 9-7zm-3 7h6v2H9v-2zm0-3h6v2H9V7zm0 6h4v2H9v-2z" />
+      </svg>
+    ),
+  },
+  {
     label: "Facebook",
     href: "https://www.facebook.com/teeramonoptics",
     icon: (
@@ -110,6 +119,12 @@ export default function Footer() {
               <path d="M16.6 3c.5 2.6 2.2 4.6 4.4 5v2.8c-1.8 0-3.4-.6-4.8-1.6v6.2c0 3.5-2.8 6.3-6.3 6.3S3.6 18.9 3.6 15.4s2.8-6.3 6.3-6.3c.4 0 .7 0 1.1.1v3.1c-.3-.1-.7-.2-1.1-.2-1.8 0-3.3 1.5-3.3 3.3s1.5 3.3 3.3 3.3 3.3-1.5 3.3-3.3V3h3.4z" />
             </svg>
             @teeramon_optic
+          </a>
+          <a href="https://line.me/R/ti/p/@741wcnor" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 hover:text-orange-600 transition">
+            <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="currentColor" aria-hidden="true">
+              <path d="M12 3c5 0 9 3.1 9 7s-4 7-9 7c-.7 0-1.4-.1-2.1-.2L6 20.8c-.3.2-.7-.1-.6-.5l.8-3.2C4 15.9 3 14 3 10c0-3.9 4-7 9-7zm-3 7h6v2H9v-2zm0-3h6v2H9V7zm0 6h4v2H9v-2z" />
+            </svg>
+            LINE OA @741wcnor
           </a>
           <div className="mt-2 text-xs text-slate-500">เปิดทุกวัน 10:00 – 20:00 น.</div>
         </div>
