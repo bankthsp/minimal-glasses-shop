@@ -38,7 +38,7 @@ export async function GET() {
         description: p.description,
         tag: p.tag,
         isRecommended: p.isRecommended,
-        inStock: p.inStock,
+        //inStock: p.inStock,
         images: p.images,
       }))
     );

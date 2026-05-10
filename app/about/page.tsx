@@ -20,10 +20,10 @@ export const metadata = {
 
 const SOCIAL = {
   facebook: "https://www.facebook.com/teeramonoptics",
-  tiktok: "https://www.tiktok.com/@teeramon_optict",
+  tiktok: "https://www.tiktok.com/@teeramon_optic",
   instagram: "https://www.instagram.com/teeramonoptic/",
   lineoa: "https://line.me/R/ti/p/@741wcnor",
-  map: "https://share.google/hocF4a8Dxa1da2DAy",
+  map: "https://maps.app.goo.gl/BjpoiYegCirNNqjYA",
 } as const;
 
 /**

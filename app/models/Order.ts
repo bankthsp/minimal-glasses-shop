@@ -14,7 +14,7 @@ export interface OrderDocument extends Document {
   address: string;
   note?: string;
   paymentMethod: "bank_transfer" | "cash_on_pickup";
-  status: "pending" | "confirmed" | "cancelled";
+  status: "pending" | "paid" | "shipped" | "cancelled";
   items: OrderItem[];
   totalAmount: number;
   createdAt: Date;

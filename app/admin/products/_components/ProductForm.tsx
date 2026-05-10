@@ -11,7 +11,7 @@ export type ProductFormValues = {
   description: string;
   tag: string;
   isRecommended: boolean;
-  inStock: boolean;
+  //inStock: boolean;
   isActive: boolean;
   images: string[]; // ตอนนี้ยังเป็น URL list (Cloudinary ค่อยทำส่วนที่ 8)
 };
@@ -36,7 +36,7 @@ export default function ProductForm({ mode, initial, onSubmit, submitLabel }: Pr
     description: initial?.description ?? "",
     tag: initial?.tag ?? "",
     isRecommended: initial?.isRecommended ?? false,
-    inStock: initial?.inStock ?? true,
+    //inStock: initial?.inStock ?? true,
     isActive: initial?.isActive ?? true,
     images: initial?.images ?? [],
   });
@@ -287,10 +287,9 @@ export default function ProductForm({ mode, initial, onSubmit, submitLabel }: Pr
         <label className="flex items-center gap-2 text-sm">
           <input
             type="checkbox"
-            checked={values.inStock}
-            onChange={(e) => set("inStock", e.target.checked)}
+            //checked={values.inStock}
+            //onChange={(e) => set("inStock", e.target.checked)}
           />
-          inStock (legacy)
         </label>
 
         <label className="flex items-center gap-2 text-sm">
