@@ -83,7 +83,7 @@ export default function ProductDetailPage() {
           <p className="text-center text-sm text-red-500">{error}</p>
           <div className="flex justify-center">
             <button
-              onClick={() => router.push("/products")}
+              onClick={() => window.location.href = "/products"}
               className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-orange-400 hover:text-orange-600"
             >
               กลับไปหน้ารายการสินค้า
