@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 type GalleryItem = {
   _id: string;
@@ -158,6 +159,17 @@ export default function AdminGalleryPage() {
           <p className="mt-1 text-sm text-slate-500">
             ลากรูปมาวางด้านล่าง หรือคลิกเพื่อเลือกไฟล์ — รูปจะอัปโหลดไป Cloudinary อัตโนมัติ
           </p>
+          <div className="mt-3">
+            <Link
+              href="/admin/gallery/import-fb"
+              className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+            >
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
+                <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5H16.7V5c-.3 0-1.4-.1-2.7-.1-2.7 0-4.5 1.6-4.5 4.6V11H7v3h2.5v8h4z" />
+              </svg>
+              Import จาก Facebook
+            </Link>
+          </div>
         </div>
 
         {/* Drop zone */}
