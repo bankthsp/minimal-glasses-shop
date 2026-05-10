@@ -338,23 +338,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="text-sm text-slate-600">© Teeramon Optic</div>
-          <div className="flex flex-wrap gap-2">
-            <Link className="text-sm font-semibold text-orange-700 hover:underline" href="/">
-              Home
-            </Link>
-            <Link className="text-sm font-semibold text-orange-700 hover:underline" href="/products">
-              Products
-            </Link>
-            <a className="text-sm font-semibold text-orange-700 hover:underline" href={CONTACT.map} target="_blank" rel="noreferrer">
-              Map
-            </a>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
