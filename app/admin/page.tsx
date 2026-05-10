@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 
 type OrderRow = {
   id: string;
@@ -80,12 +81,20 @@ export default function AdminDashboardPage() {
             </p>
           </div>
 
-          <button
-            onClick={logout}
-            className="border rounded-xl px-3 py-2 text-sm hover:bg-neutral-50"
-          >
-            Logout
-          </button>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/admin/gallery"
+              className="border rounded-xl px-3 py-2 text-sm hover:bg-orange-50 hover:border-orange-300 hover:text-orange-600"
+            >
+              จัดการ Gallery
+            </Link>
+            <button
+              onClick={logout}
+              className="border rounded-xl px-3 py-2 text-sm hover:bg-neutral-50"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         <div className="mt-6 flex items-center gap-3">
