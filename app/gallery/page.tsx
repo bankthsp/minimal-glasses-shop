@@ -1,11 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Container from "../components/layout/Container";
-import { galleryItems, FACEBOOK_URL, type GalleryItem } from "./data";
 
+const FACEBOOK_URL = "https://www.facebook.com/teeramonoptics";
 const TAGS = ["ทั้งหมด", "กรอบสายตา", "แว่นกันแดด", "เลนส์", "อื่นๆ"] as const;
+
+type GalleryItem = {
+  _id: string;
+  imageUrl: string;
+  title: string;
+  brand: string;
+  tag: string;
+};
 
 function LightboxModal({
   item,
@@ -39,7 +47,7 @@ function LightboxModal({
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={item.imageUrl}
-            alt={item.title ?? item.brand ?? "แว่นตา"}
+            alt={item.title || item.brand || "แว่นตา"}
             className="h-full w-full object-cover"
           />
         </div>
@@ -107,11 +115,10 @@ function GalleryCard({
       onClick={onClick}
       className="group relative aspect-square w-full overflow-hidden rounded-2xl bg-slate-100 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400"
     >
-      {/* รูปภาพ */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={item.imageUrl}
-        alt={item.title ?? item.brand ?? "แว่นตา"}
+        alt={item.title || item.brand || "แว่นตา"}
         className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
         onError={(e) => {
           (e.target as HTMLImageElement).src =
@@ -147,14 +154,22 @@ function GalleryCard({
 }
 
 export default function GalleryPage() {
-  const [activeTag, setActiveTag] =
-    useState<(typeof TAGS)[number]>("ทั้งหมด");
+  const [items, setItems] = useState<GalleryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeTag, setActiveTag] = useState<(typeof TAGS)[number]>("ทั้งหมด");
   const [selected, setSelected] = useState<GalleryItem | null>(null);
+
+  useEffect(() => {
+    fetch("/api/gallery")
+      .then((r) => r.json())
+      .then((data) => setItems(Array.isArray(data) ? data : []))
+      .finally(() => setLoading(false));
+  }, []);
 
   const filtered =
     activeTag === "ทั้งหมด"
-      ? galleryItems
-      : galleryItems.filter((i) => i.tag === activeTag);
+      ? items
+      : items.filter((i) => i.tag === activeTag);
 
   return (
     <main className="min-h-screen bg-white">
@@ -170,7 +185,7 @@ export default function GalleryPage() {
                 แกลเลอรีแว่นตา
               </h1>
               <p className="mt-1 text-sm text-slate-600">
-                เลือกดูแว่นตาและกรอบของเราได้เลย — สอบถาม/สั่งผ่าน Facebook
+                เลือกดูแว่นตาและกรอบของเรา — สอบถาม/สั่งผ่าน Facebook
               </p>
             </div>
 
@@ -210,15 +225,23 @@ export default function GalleryPage() {
       {/* Gallery grid */}
       <section className="py-10">
         <Container>
-          {filtered.length === 0 ? (
+          {loading ? (
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="aspect-square w-full animate-pulse rounded-2xl bg-slate-100" />
+              ))}
+            </div>
+          ) : filtered.length === 0 ? (
             <div className="py-20 text-center text-sm text-slate-400">
-              ไม่มีสินค้าในหมวดนี้
+              {items.length === 0
+                ? "ยังไม่มีรูปใน Gallery — ติดตามได้ที่ Facebook ของร้าน"
+                : "ไม่มีสินค้าในหมวดนี้"}
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
               {filtered.map((item) => (
                 <GalleryCard
-                  key={item.id}
+                  key={item._id}
                   item={item}
                   onClick={() => setSelected(item)}
                 />
@@ -241,11 +264,7 @@ export default function GalleryPage() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-orange-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-700"
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-4 w-4"
-                  fill="currentColor"
-                >
+                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
                   <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5H16.7V5c-.3 0-1.4-.1-2.7-.1-2.7 0-4.5 1.6-4.5 4.6V11H7v3h2.5v8h4z" />
                 </svg>
                 ไปที่ Facebook
@@ -256,11 +275,7 @@ export default function GalleryPage() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-orange-300 hover:text-orange-600"
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-4 w-4"
-                  fill="currentColor"
-                >
+                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
                   <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM18 6.8a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z" />
                 </svg>
                 Instagram
